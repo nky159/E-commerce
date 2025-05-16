@@ -1,53 +1,91 @@
-import React from 'react'
-import SearchBar from '../searchBar/SearchBar'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
+import SearchBar from "../searchBar/SearchBar";
+import { useSelector } from "react-redux";
+
 
 const Navbar = () => {
+    // get user from localStorage 
+    const user = JSON.parse(localStorage.getItem('users'));
 
+    // navigate 
+    const navigate = useNavigate();
+
+    // logout function 
+    const logout = () => {
+        localStorage.clear('users');
+        navigate("/login")
+    }
+
+    // CartItems
+    const cartItems = useSelector((state) => state.cart);
+
+    // navList Data
     const navList = (
-      <ul className='flex justify-center items-center  gap-5'>
-       
-        <li>
-          <Link to={'/'}>Home</Link>
-        </li>
-        <li>
-          <Link to={'/allproduct'}>All Product</Link>
-        </li>
-        <li>
-          <Link to={'/signup'}>Signup</Link>
-        </li>
-        <li>
-          <Link to={'/about'}>About</Link>
-        </li>
-        <li>
-          <Link to={'/cart'}>Cart(0)</Link>
-        </li>
-      </ul>
+        <ul className="flex space-x-3 text-white font-medium text-md px-5 ">
+            {/* Home */}
+            <li>
+                <Link to={'/'}>Home</Link>
+            </li>
+
+            {/* All Product */}
+            <li>
+                <Link to={'/allproduct'}>All Product</Link>
+            </li>
+
+            {/* Signup */}
+            {!user ? <li>
+                <Link to={'/signup'}>Signup</Link>
+            </li> : ""}
+
+            {/* Signup */}
+            {!user ? <li>
+                <Link to={'/login'}>Login</Link>
+            </li> : ""}
+
+            {/* User */}
+            {user?.role === "user" && <li>
+                <Link to={'/user-dashboard'}>User</Link>
+            </li>}
+
+            {/* Admin */}
+            {user?.role === "admin" && <li>
+                <Link to={'/admin-dashboard'}>Admin</Link>
+            </li>}
+
+            {/* logout */}
+            {user && <li className=" cursor-pointer" onClick={logout}>
+                logout
+            </li>}
+
+            {/* Cart */}
+            <li>
+                <Link to={'/cart'}>
+                    Cart({cartItems.length})
+                </Link>
+            </li>
+        </ul>
     )
-  return (
-   <div className="bg-indigo-400 sticky top-0 p-2">
-  <div className="main flex flex-col gap-2 items-center justify-center mx-2 
-                  md:flex-col 
-                  lg:flex-row lg:justify-between lg:items-center">
-    
-    {/* Logo / Left Section */}
-    <div className="left text-white text-xl font-semibold">
-      <h2>E-Bharat</h2>
-    </div>
+    return (
+        <nav className="bg-pink-600 sticky top-0">
+            {/* main  */}
+            <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
+                {/* left  */}
+                <div className="left py-3 lg:py-0">
+                    <Link to={'/'}>
+                        <h2 className=" font-bold text-white text-2xl text-center">E-Bharat</h2>
+                    </Link>
+                </div>
 
-    {/* Navigation */}
-    <div className="flex justify-center items-center bg-amber-700 w-full lg:w-auto px-4 py-2 rounded">
-      {navList}
-    </div>
+                {/* right  */}
+                <div className="right flex justify-center mb-4 lg:mb-0">
+                    {navList}
+                </div>
 
-    {/* Search Bar */}
-    <div className="w-full md:w-3/4 lg:w-auto mt-2 lg:mt-0">
-      <SearchBar />
-    </div>
-  </div>
-</div>
-
-  )
+                {/* Search Bar  */}
+                <SearchBar />
+            </div>
+        </nav>
+    );
 }
 
-export default Navbar
+export default Navbar;

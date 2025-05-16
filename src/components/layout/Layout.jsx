@@ -1,21 +1,16 @@
-import React from 'react'
-import Navbar from '../navbar/Navbar'
-import Footer from '../footer/Footer'
-import Homepage from '../../pages/Homepage/Homepage'
-import Track from '../track/Track'
+import React from "react";
+import Navbar from "../navbar/Navbar";
+import Footer from "../footer/Footer";
 
-const Layout = ({childern}) => {
+const Layout = ({ children }) => {
   return (
     <div>
-      <Navbar/>
-      <div className='main-content min-h-screen'>
-        <Homepage/>
-      </div>
-      <Track/>
+      <Navbar />
+      <div className="main-content min-h-screen">{children}</div>
 
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
