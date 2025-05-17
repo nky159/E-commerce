@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Homepage/Homepage";
+
 import Footer from "./components/footer/Footer";
 import NoPage from "./pages/noPages/NoPage";
 import ProductInfo from "./pages/productInfo/ProductInfo";
@@ -9,7 +9,7 @@ import HomePageProductCard from "./components/homePageProduct/HomePageProductCar
 import Homepage from "./pages/Homepage/Homepage";
 import ScrollTop from "./components/scrollTop/ScrollTop";
 import Cart from "./pages/cart/CartPage";
-import AllProduct from "./pages/allProduct/allProduct";
+import AllProduct from "./pages/allProduct/AllProduct";
 import Signup from "./pages/registration/Signup";
 import Login from "./pages/registration/Login";
 import UserDashboard from "./pages/user/UserDashboard";
