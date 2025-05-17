@@ -20,8 +20,6 @@ import MyState from "./context/myState";
 import { ProtectedRouteForAdmin } from "./protectedRoute/ProtectedRouteForAdmin";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <MyState>
       <BrowserRouter>
@@ -52,11 +50,14 @@ function App() {
               </ProtectedRouteForAdmin>
             }
           />
-          <Route path="/updateproduct/:id" element={
-            <ProtectedRouteForAdmin>
-              <UpdateProductPage />
-            </ProtectedRouteForAdmin>
-          } />
+          <Route
+            path="/updateproduct/:id"
+            element={
+              <ProtectedRouteForAdmin>
+                <UpdateProductPage />
+              </ProtectedRouteForAdmin>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </MyState>

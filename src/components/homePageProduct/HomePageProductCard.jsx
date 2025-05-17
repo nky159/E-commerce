@@ -41,59 +41,55 @@ const HomePageProductCard = () => {
             </div>
 
             {/* main  */}
-            <section className="text-gray-600 body-font">
-                <div className="container px-5 py-5 mx-auto">
-                    <div className="flex flex-wrap -m-4">
-                        {getAllProduct.slice(0, 8).map((item, index) => {
-                            const { id, title, price, productImageUrl } = item
-                            return (
-                                <div key={index} className="p-4 w-full md:w-1/4">
-                                    <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer">
-                                        <img
-                                            onClick={() => navigate(`/productinfo/${id}`)}
-                                            className="lg:h-80  h-96 w-full"
-                                            src={productImageUrl}
-                                            alt="blog"
-                                        />
-                                        <div className="p-6">
-                                            <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-                                                E-bharat
-                                            </h2>
-                                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-                                                {title.substring(0, 25)}
-                                            </h1>
-                                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-                                                ₹{price}
-                                            </h1>
+           <section className="text-gray-600 body-font">
+  <div className="container px-5 py-5 mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {getAllProduct.slice(0, 8).map((item, index) => {
+        const { id, title, price, productImageUrl } = item;
+        return (
+          <div key={index} className="w-full">
+            <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer transition-transform hover:scale-105">
+              <img
+                onClick={() => navigate(`/productinfo/${id}`)}
+                className="h-84  w-full object-cover"
+                src={productImageUrl}
+                alt="product"
+              />
+              <div className="p-4">
+                <h2 className="tracking-widest text-xs font-medium text-gray-400 mb-1">
+                  E-bharat
+                </h2>
+                <h1 className="text-base font-semibold text-gray-900 mb-2">
+                  {title.length > 25 ? title.substring(0, 25) + "..." : title}
+                </h1>
+                <p className="text-lg font-bold text-gray-800 mb-3">₹{price}</p>
 
-                                            <div
-                                                className="flex justify-center ">
-                                                {cartItems.some((p)=> p.id === item.id) 
-                                                
-                                                ?
-                                                <button
-                                                    onClick={() => deleteCart(item)}
-                                                    className=" bg-red-700 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
-                                                    Delete To Cart
-                                                </button>
-
-                                                : 
-
-                                                <button
-                                                    onClick={() => addCart(item)}
-                                                    className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
-                                                    Add To Cart
-                                                </button>
-                                            }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
+                <div className="flex justify-center">
+                  {cartItems.some((p) => p.id === item.id) ? (
+                    <button
+                      onClick={() => deleteCart(item)}
+                      className="bg-red-500 hover:bg-red-600 w-full text-white py-2 rounded-lg font-semibold"
+                    >
+                      Delete From Cart
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => addCart(item)}
+                      className="bg-[#8E7DBE] hover:bg-[#7E60BF] w-full text-white py-2 rounded-lg font-semibold"
+                    >
+                      Add To Cart
+                    </button>
+                  )}
                 </div>
-            </section>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
         </div>
     );
 }

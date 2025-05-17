@@ -2,90 +2,74 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import { useSelector } from "react-redux";
 
-
 const Navbar = () => {
-    // get user from localStorage 
     const user = JSON.parse(localStorage.getItem('users'));
-
-    // navigate 
     const navigate = useNavigate();
-
-    // logout function 
-    const logout = () => {
-        localStorage.clear('users');
-        navigate("/login")
-    }
-
-    // CartItems
     const cartItems = useSelector((state) => state.cart);
 
-    // navList Data
-    const navList = (
-        <ul className="flex space-x-3 text-white font-medium text-md px-5 ">
-            {/* Home */}
-            <li>
-                <Link to={'/'}>Home</Link>
-            </li>
+    const logout = () => {
+        localStorage.clear();
+        navigate("/login");
+    };
 
-            {/* All Product */}
-            <li>
-                <Link to={'/allproduct'}>All Product</Link>
-            </li>
-
-            {/* Signup */}
-            {!user ? <li>
-                <Link to={'/signup'}>Signup</Link>
-            </li> : ""}
-
-            {/* Signup */}
-            {!user ? <li>
-                <Link to={'/login'}>Login</Link>
-            </li> : ""}
-
-            {/* User */}
-            {user?.role === "user" && <li>
-                <Link to={'/user-dashboard'}>User</Link>
-            </li>}
-
-            {/* Admin */}
-            {user?.role === "admin" && <li>
-                <Link to={'/admin-dashboard'}>Admin</Link>
-            </li>}
-
-            {/* logout */}
-            {user && <li className=" cursor-pointer" onClick={logout}>
-                logout
-            </li>}
-
-            {/* Cart */}
-            <li>
-                <Link to={'/cart'}>
-                    Cart({cartItems.length})
-                </Link>
-            </li>
-        </ul>
-    )
     return (
-        <nav className="bg-pink-600 sticky top-0">
-            {/* main  */}
-            <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
-                {/* left  */}
-                <div className="left py-3 lg:py-0">
-                    <Link to={'/'}>
-                        <h2 className=" font-bold text-white text-2xl text-center">E-Bharat</h2>
-                    </Link>
+        <nav className="bg-[#563D7C] sticky top-0 z-50 shadow-md">
+            <div className="container mx-auto px-4 py-3 flex flex-col lg:flex-row items-center justify-between">
+                
+                {/* Logo */}
+                <div className="text-[#ACA0BF] text-2xl font-bold mb-3 hover:text-black lg:mb-0">
+                    <Link className="" to="/">E-Bharat</Link>
                 </div>
 
-                {/* right  */}
-                <div className="right flex justify-center mb-4 lg:mb-0">
-                    {navList}
+                {/* Search Bar */}
+                <div className="w-full lg:w-1/2 mb-3 lg:mb-0">
+                    <SearchBar />
                 </div>
 
-                {/* Search Bar  */}
-                <SearchBar />
+                {/* Nav Links */}
+                <ul className="flex flex-wrap items-center justify-center gap-4 text-white font-medium">
+                    <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/">Home</Link></li>
+                    <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/allproduct">All Products</Link></li>
+
+                    {!user && (
+                        <>
+                            {/* <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/signup">Signup</Link></li> */}
+                            <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/login">Login</Link></li>
+                        </>
+                    )}
+
+                    {user?.role === "user" && (
+                        <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/user-dashboard">User</Link></li>
+                    )}
+                    {user?.role === "admin" && (
+                        <li><Link className="hover:text-pink-100 text-[#ACA0BF] transition" to="/admin-dashboard">Admin</Link></li>
+                    )}
+
+                    {user && (
+                        <li
+                            onClick={logout}
+                            className="cursor-pointer text-[#ACA0BF] hover:text-pink-100 transition"
+                        >
+                            Logout
+                        </li>
+                    )}
+
+                    {/* Cart with Badge */}
+                    <li>
+                        <Link
+                            to="/cart"
+                            className="relative inline-flex items-center px-3 py-1 bg-white text-pink-600 font-bold rounded-full hover:bg-pink-100 transition"
+                        >
+                            Cart
+                            <span className="ml-1 inline-flex items-center justify-center text-xs font-semibold bg-pink-600 text-white rounded-full w-5 h-5">
+                                {cartItems.length}
+                            </span>
+                        </Link>
+                    </li>
+                </ul>
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;

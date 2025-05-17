@@ -45,8 +45,9 @@ const Category = () => {
                         {category.map((item, index) => (
                             <div key={index} className="px-3 lg:px-10">
                                 <div
-                                    onClick={() => navigate(`/category/${item.name}`)}
-                                    className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full bg-pink-500 transition-all hover:bg-pink-400 cursor-pointer flex items-center justify-center mb-1"
+                                    // onClick={() => navigate(`/category/${item.name}`)}
+                                    onClick={()=>navigate(`/allproduct`)}
+                                    className="w-16 h-16 lg:w-24 lg:h-24 max-w-xs rounded-full bg-[#8E7DBE] transition-all hover:bg-[#7E5CAD] cursor-pointer flex items-center justify-center mb-1"
                                 >
                                     <img
                                         src={item.image}
